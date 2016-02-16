@@ -1,0 +1,24 @@
+{
+	"name": "cloudoki/frontqueue",
+	"description": "Gearman Jobserver Integration",
+	"keywords": ["gearman", "api", "laravel", "3-layer"],
+	"license": "MIT",
+    "authors": [
+		{
+			"name": "Koen Betsens",
+			"email": "koen@cloudoki.com",
+			"homepage": "http://blog.cloudoki.com"
+		}
+    ],
+	"require": {
+		"php": ">=5.4.0",
+		"vlucas/phpdotenv": "~2.2"
+	},
+	"autoload": {
+		"classmap": [],
+		"psr-0": {
+			"Cloudoki\\FrontQueue\\": "src/"
+		}
+	},
+	"minimum-stability": "stable"
+}
