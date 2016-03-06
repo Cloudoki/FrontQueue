@@ -15,7 +15,10 @@
 		"vlucas/phpdotenv": "~2.2"
 	},
 	"autoload": {
-		"classmap": [],
+		"classmap": [
+			"src/Cloudoki/FrontQueue/Controllers",
+			"src/Cloudoki/FrontQueue/Models"
+		],
 		"psr-0": {
 			"Cloudoki\\FrontQueue\\": "src/"
 		}

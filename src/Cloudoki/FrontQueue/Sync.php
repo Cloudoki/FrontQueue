@@ -11,7 +11,7 @@ class Sync {
 
 	public function doExec ($job, $jobload)
 	{
-		exec ("php -f '" . env('WORKER_PATH', '/var/www/worker') . "/" . $job . ".php' sync '" . $jobload . "'", $output);
+		exec ("php -f '" . env('WORKER_PATH', '/var/www/worker') . "/" . $job . ".php' sync '" . json_encode ($jobload) . "'", $output);
 		
 		return implode ("\n", $output);
 	}

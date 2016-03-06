@@ -13,7 +13,10 @@ class FrontLocalQueue extends FrontQueue
 	 */
 	public static function getServerClient()
 	{
-		return new Sync;
+		return config ('app.stacked', true)? 
+			
+			new Sync:
+			new Folded;
 	}
 	
 	/**
@@ -29,8 +32,8 @@ class FrontLocalQueue extends FrontQueue
 		
 		return $priority?
 		
-			$client->doHigh ($job, json_encode($jobload)):
-			$client->doLow ($job, json_encode($jobload));
+			$client->doHigh ($job, $jobload):
+			$client->doLow ($job, $jobload);
 	}
 	
 	/**
@@ -46,8 +49,8 @@ class FrontLocalQueue extends FrontQueue
 
 		return $priority?
 		
-			$client->doHighBackground ($job, json_encode($jobload)):
-			$client->doLowBackground ($job, json_encode($jobload));
+			$client->doHighBackground ($job, $jobload):
+			$client->doLowBackground ($job, $jobload);
 	}
 
 }
