@@ -14,9 +14,12 @@ class DispatchController extends BaseController
 	{
 		try
 		{
+			# Identify class
+			$controller = (class_exists ($args->controller)? null: "App\\Http\\Controllers\\") . $args->controller;
+			
 			# Controller IoC
 			$response = app()
-				->make("App\\Http\\Controllers\\". $args->controller)
+				->make ($controller)
 				->{$args->action} ($args->payload);
 		}
 		catch (Exception $e)
