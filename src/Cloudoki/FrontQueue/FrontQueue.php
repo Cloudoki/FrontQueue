@@ -5,8 +5,6 @@ use Illuminate\Support\Facades\Config;
 
 class FrontQueue
 {
-	static $default_server = ['localhost'=> 4730];
-	
 	/**
 	 *	Get Server Client
 	 *	In this case, the GearmanClient
@@ -16,13 +14,18 @@ class FrontQueue
 	public static function getServerClient()
 	{
 		$client = new GearmanClient ();
-		$servers = config ('app.gearman.servers')? : self::$default_server;
+
+		$servers = config ('app.gearman.servers');
 		
-		foreach ($servers as $server => $port)
-		{
-			$client->addServer ($server, $port);
+		if (!empty($servers)) {
+			// Backwards compatibility
+			foreach ($servers as $server => $port)
+			{
+				$client->addServer ($server, $port);
+			}
+		} else {
+			$client->addServers (config ('frontqueue.gearman.servers'));
 		}
-		
 		return $client;
 	}
 	
@@ -36,7 +39,7 @@ class FrontQueue
 	public static function request($job, $jobload, $priority = false)
 	{
 		$client = self::getServerClient();
-		
+
 		return $priority?
 		
 			$client->doHigh ($job, json_encode($jobload)):

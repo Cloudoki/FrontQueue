@@ -21,3 +21,8 @@ The folded state is ONLY for poc projects, since it requires additional resource
 Enable it in config, by adding:
 
 `'stacked'=> false,`
+
+### Configuration
+This package publishes the configuration file `config/frontqueue.php` and allows for the Gearman servers to be defined in the `.env` file using the `FRONTQUEUE_GEARMAN_SERVERS` environment variable.
+
+The config value is expected to be in the format `host1:port1[,host2:port2[,...]]` since the connection is performed with the `GearmanClient::addServers()` method.

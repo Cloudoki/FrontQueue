@@ -31,13 +31,18 @@ class FrontQueueServiceProvider extends ServiceProvider {
 	public function register()
 	{
 
+		$this->publishes (
+		[
+			__DIR__.'/../../config/frontqueue.php' => config_path ('frontqueue.php')
+		], 'config');
+
 		$this->app['frontqueue'] = $this->app->share(function($app)
-        {
-            return env('APP_ENV', 'development') == 'local'?
-            	
-            	new FrontLocalQueue():
-            	new FrontQueue();
-        });
+		{
+			return env('APP_ENV', 'development') == 'local'?
+
+				new FrontLocalQueue():
+				new FrontQueue();
+		});
 	}
 
 	/**
