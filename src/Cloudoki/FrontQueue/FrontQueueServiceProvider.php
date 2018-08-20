@@ -21,6 +21,10 @@ class FrontQueueServiceProvider extends ServiceProvider {
 	 */
 	public function boot()
 	{
+		$this->publishes (
+		[
+			__DIR__.'/../../config/frontqueue.php' => config_path ('frontqueue.php')
+		], 'config');
 	}
 
 	/**
@@ -30,13 +34,7 @@ class FrontQueueServiceProvider extends ServiceProvider {
 	 */
 	public function register()
 	{
-
-		$this->publishes (
-		[
-			__DIR__.'/../../config/frontqueue.php' => config_path ('frontqueue.php')
-		], 'config');
-
-		$this->app['frontqueue'] = $this->app->share(function($app)
+		$this->app->singleton('frontqueue', function ($app)
 		{
 			return env('APP_ENV', 'development') == 'local'?
 
@@ -54,5 +52,4 @@ class FrontQueueServiceProvider extends ServiceProvider {
 	{
 		return ['frontqueue'];
 	}
-
 }
